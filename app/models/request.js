@@ -8,8 +8,8 @@ function queryTwitterAPI(){
   debugger
   $.ajax({
     url: rootURL + term,
-    // dataType: 'jsonp',
-    // jsonpCallback: false,
+    dataType: 'jsonp',
+    jsonpCallback: false,
     // data: oauth.authorize(request_data, token),
     headers: {
       "Access-Control-Allow-Origin": '*'
@@ -17,12 +17,6 @@ function queryTwitterAPI(){
   }).done(function(data){
     console.log(data)
   })
-    // error: function(xhr, status, error){
-    //   console.log(xhr)
-    //   console.log(status),
-    //   console.log(error)
-    // }
-
 }
 
 // var oauth = OAuth({
@@ -79,4 +73,9 @@ function queryTwitterAPI(){
 //        ,
 // xhrFields: {
 //   withCredentials: true
+// }
+// error: function(xhr, status, error){
+//   console.log(xhr),
+//   console.log(status),
+//   console.log(error)
 // }
