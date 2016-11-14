@@ -1,19 +1,24 @@
 // var request = require('request');
 // var OAuth   = require('oauth-1.0a');
 // var crypto  = require('crypto');
-const rootURL = "http://api.eventful.com/rest/events/search?app_key=btZGcN2g4drGjd73&keywords="
+
+const rootURL = "https://api.foursquare.com/v2/venues/search?"
+  //&ll=40.7,-74 ---Lat and Longitude
+const authorize={
+  client_id:'2VDO3R100FWTZUV24MTZEXD5VZMYRMCRMERUNUYCOG0STC4Z',
+  client_secret:'3N3Z0AM0COVEAOLZHDPSZBUE30V2AH0TRKZBND21SGREVFE',
+  v:'20180101',
+  m:'foursquare'
+}
 
 function queryTwitterAPI(){
   let term = $("#userInput").val()
   debugger
   $.ajax({
-    url: rootURL + term,
-    dataType: 'jsonp',
-    jsonpCallback: false,
-    // data: oauth.authorize(request_data, token),
-    headers: {
-      "Access-Control-Allow-Origin": '*'
-    }
+    url: "https://api.foursquare.com/v2/venues/search?query=Pie",
+    method: "GET",
+    data: authorize,
+    dataType: 'JSON'
   }).done(function(data){
     console.log(data)
   })
@@ -78,4 +83,17 @@ function queryTwitterAPI(){
 //   console.log(xhr),
 //   console.log(status),
 //   console.log(error)
+// }
+// function fourSquareAdapter(searchTerm, stopLat, stopLong, stopId){
+//   var searchUrl = `https://api.foursquare.com/v2/venues/search?query=${searchTerm}&radius=400&ll=${stopLat},${stopLong}`
+//   return $.ajax({
+//     url: searchUrl,
+//     method: "GET",
+//     data: authParams,
+//     dataType: 'JSON',
+//     crossDomain: true,
+//   }).done(function(returnObject) {
+//     let venues = returnObject.response.venues.slice(0,5)
+//     buildRestaurant(venues, stopId)
+//   })
 // }
