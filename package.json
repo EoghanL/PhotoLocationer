@@ -8,6 +8,7 @@
     "npm": "3.x"
   },
   "scripts": {
+    "start": "node server.js",
     "test": "mocha -R mocha-multi --reporter-options nyan=-,json=.results.json"
   },
   "repository": {
