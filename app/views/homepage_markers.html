@@ -35,34 +35,81 @@
   <body>
     <div id="map"></div>
     <script>
-      var map;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
-          center: new google.maps.LatLng(38,-95),
-          mapTypeId: 'terrain'
+    var map;
+    function initMap() {
+      map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 4,
+        center: new google.maps.LatLng(38, -95),
+        mapTypeId: 'roadmap'
+      });
+
+      function addMarker(feature) {
+        var marker = new google.maps.Marker({
+          position: feature.position,
+          //this line
+          icon: getCircle(),
+          map: map
         });
-
-        // Create a <script> tag and set the USGS URL as the source.
-        var script = document.createElement('script');
-        // This example uses a local copy of the GeoJSON stored at
-        // http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojsonp
-        script.src = 'https://developers.google.com/maps/documentation/javascript/examples/json/earthquake_GeoJSONP.js';
-        document.getElementsByTagName('head')[0].appendChild(script);
       }
 
-      // Loop through the results array and place a marker for each
-      // set of coordinates.
-      window.eqfeed_callback = function(results) {
-        for (var i = 0; i < results.features.length; i++) {
-          var coords = results.features[i].geometry.coordinates;
-          var latLng = new google.maps.LatLng(coords[1],coords[0]);
-          var marker = new google.maps.Marker({
-            position: latLng,
-            map: map
-          });
+      function getCircle() {
+        //alll this code does is style a circle --does not convey location
+        return {
+          path: google.maps.SymbolPath.CIRCLE,
+          fillColor: 'red',
+          fillOpacity: .5,
+          scale: 3,
+          strokeColor: 'white',
+          strokeWeight: .5
+        };
+      }
+
+      var features = [
+        {
+          position: new google.maps.LatLng(32.842674, -117.257767),
+        }, {
+          position: new google.maps.LatLng(37.91539, -121.22820),
+        }, {
+          position: new google.maps.LatLng(43.91747, -151.22912),
+        }, {
+          position: new google.maps.LatLng(23.91910, -151.22907),
+        }, {
+          position: new google.maps.LatLng(33.91725, -141.23011),
+        }, {
+          position: new google.maps.LatLng(33.91872, -151.23089),
+        }, {
+          position: new google.maps.LatLng(33.91784, -151.23094),
+        }, {
+          position: new google.maps.LatLng(33.91682, -151.23149),
+        }, {
+          position: new google.maps.LatLng(33.91790, -151.23463),
+        }, {
+          position: new google.maps.LatLng(33.91666, -151.23468),
+        }, {
+          position: new google.maps.LatLng(33.916988, -151.233640),
+        }, {
+          position: new google.maps.LatLng(33.91662347903106, -151.22879464019775),
+        }, {
+          position: new google.maps.LatLng(33.916365282092855, -151.22937399734496),
+        }, {
+          position: new google.maps.LatLng(33.91665018901448, -151.2282474695587),
+        }, {
+          position: new google.maps.LatLng(33.919543720969806, -151.23112279762267),
+        }, {
+          position: new google.maps.LatLng(33.91608037421864, -151.23288232673644),
+        }, {
+          position: new google.maps.LatLng(33.91851096391805, -151.2344058214569),
+        }, {
+          position: new google.maps.LatLng(33.91818154739766, -151.2346203981781),
+        }, {
+          position: new google.maps.LatLng(33.91727341958453, -151.23348314155578),
         }
+      ];
+
+      for (var i = 0, feature; feature = features[i]; i++) {
+        addMarker(feature);
       }
+    }
     </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrSv4vpETlwKWfayjJbR3O5DMhMOR15mA&callback=initMap">
