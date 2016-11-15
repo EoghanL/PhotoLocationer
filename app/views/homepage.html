@@ -15,7 +15,7 @@
     function initMap() {
       map = new google.maps.Map(document.getElementById('map'), {
         zoom: 4,
-        center: new google.maps.LatLng(getCountry().latlng[0], getCountry().latlng[1]),
+        center: new google.maps.LatLng(38, -95),
         mapTypeId: 'roadmap'
       });
 
@@ -39,7 +39,7 @@
           strokeWeight: .5
         };
       }
-
+      //this is all hardcoded data that will need to be replaced by a function
       var features = [
         {
           position: new google.maps.LatLng(32.842674, -117.257767),
@@ -359,6 +359,5 @@
     </div>
     <script type="text/javascript" src="./countries.json"></script>
     <script type="text/javascript" src="./country.js"></script>
-    
   </body>
 </html>
