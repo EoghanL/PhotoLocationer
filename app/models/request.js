@@ -2,7 +2,6 @@
 // var OAuth   = require('oauth-1.0a');
 // var crypto  = require('crypto');
 
-const rootURL = "https://api.foursquare.com/v2/venues/search?"
   //&ll=40.7,-74 ---Lat and Longitude
 const authorize={
   client_id:'2VDO3R100FWTZUV24MTZEXD5VZMYRMCRMERUNUYCOG0STC4Z',
@@ -10,20 +9,38 @@ const authorize={
   v:'20180101',
   m:'foursquare'
 }
+https://api.flickr.com/services/rest/?&method=flickr.photos.geo.getLocation&api_key=c9a915838f46c00d25dbdbf28614f240&photo_id=
+rootURL = "https://api.flickr.com/services/rest/?&method=flickr.photos.search&tag=nyc&format=json&has_geo=1&accuracy=14&api_key=c9a915838f46c00d25dbdbf28614f240"
+
 
 function queryTwitterAPI(){
+  let response = ""
   let term = $("#userInput").val()
-  debugger
   $.ajax({
-    url: "https://api.foursquare.com/v2/venues/search?query=Pie",
+    url: rootURL,
     method: "GET",
-    data: authorize,
-    dataType: 'JSON'
-  }).done(function(data){
-    console.log(data)
+    success: function(data){
+      let parser = JSON.parse(data.slice(14,-1)).photos.photo
+      parser.forEach(function(element){
+        new createPhoto(element.id, element.owner, element.secret, element.server, element.farm)
+      })
+      return parser
+      console.log("SUCCESS")
+    },
+    error: function(data){
+      console.log(data, "ERROR")
+    }
   })
 }
-
+// .done(function(data){
+//   debugger
+//   let parser = JSON.parse(data.slice(14,-1)).photos.photo
+//   console.log(parser)
+//   parser.forEach(function(element){
+//     new createPhoto(element.id, element.owner, element.secret, element.server, element.farm)
+//   })
+//   return parser
+// })
 // var oauth = OAuth({
 //     consumer: {
 //         key: "2Q858yg1xnvUIWjPPTqDB3Ldc",
