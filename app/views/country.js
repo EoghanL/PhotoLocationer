@@ -24,4 +24,4 @@ countries.map(function(country) {
 })
 
 
-select store.latlng where store.name == "" value or title
+// select store.latlng where store.name == "" value or title
