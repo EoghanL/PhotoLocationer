@@ -4,18 +4,19 @@ const createPhoto = (function(){
   locationURL = `https://api.flickr.com/services/rest/?&method=flickr.photos.geo.getLocation&format=json&api_key=c9a915838f46c00d25dbdbf28614f240&photo_id=`
   store_id = 0
   return class Photo{
-    constructor(photo_id, owner, secret, server, farm){
+    constructor(photo_id, secret, server, farm, url){
       this.id = ++store_id
       this.photo_id = photo_id
-      this.owner = owner
       this.secret = secret
       this.farm = farm
+      this.url = url
       $.when(this.getLocations()).done(() => {
         store = [...store, this]
       })
+
     }
     getLocations(){
-      var that = this
+      let that = this
       return $.ajax({
         url: locationURL + `${this.photo_id}`,
         method: "GET"
@@ -23,25 +24,7 @@ const createPhoto = (function(){
         data = JSON.parse(data.slice(14,-1)).photo.location
         that.locations = [data.latitude, data.longitude]
       })
-
     }
-
-
   }
 })()
-// success: function(data){
-//   data = JSON.parse(data.slice(14,-1))
-//   debugger
-//   return [data.location.latitude, data.location.longitude]
-// },
-// error: function(data){
-//   console.log(data)
-//   console.log("ERROR")
-// }
-// .done(function(data){
-//   debugger
-//   console.log(data)
-// }).fail(function(data){
-//   console.log(data)
-//   console.log("FAIL")
-// })
+// THINGS TO DO: Set Geo Radius to max // CONVERT TO REACT COMPONENTS // ??????????????
